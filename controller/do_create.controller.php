@@ -12,7 +12,16 @@ $SQL->add('fylke', $fylke);
 $SQL->add('type', $_POST['type']);
 
 $res = $SQL->run();
+$id = $SQL->insId();
 
+if( $id > 0 ) {
+	foreach( $_POST['kommuner'] as $kommune_id ) {
+		$sql = new SQLins('ukm_avis_nedslagsfelt');
+		$sql->add('kommune_id', $kommune_id );
+		$sql->add('avis_id', $id );
+		$sql->run();
+	}
+}
 
 if( $res === true || $res == 1 ) {
 	$TWIGdata['flashbag'] = array('status'=>'success', 'message'=> $_POST['name'] .' lagt til');
