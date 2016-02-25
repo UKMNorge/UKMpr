@@ -13,5 +13,7 @@ if( get_option('site_type') == 'fylke') {
 	}
 } else {
 	$TWIGdata['kommuner'] = $pl->get('kommuner');
-}	
+}
+
+$TWIGdata['fylke_id'] = $pl->get('fylke_id');
 ?>
