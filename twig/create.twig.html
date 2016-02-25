@@ -26,24 +26,25 @@
 		</div>
 		
 		
-		
-		<fieldset>
-			<legend>Hvilke {{ fylke_id == 3 ? 'bydeler' : 'kommuner' }} gjelder denne avisen for?</legend>
-			<p>Du trenger ikke å legge inn dette nå, det kan du gjøre senere</p>
-			
-			<ol class="list-unstyled">
-			{% for kommune in kommuner %}
-				<li>
-					<label>
-						<input type="checkbox" name="kommuner[]" value="{{ kommune.id }}">
-						{{ kommune.name }}
-					</label>
-				</li>
-			{% endfor %}
-			</ol>
-		</fieldset>
-		
-		
+		{% if kommuner|length == 1 %}
+			<input type="hidden" name="kommuner[]" value="{{kommuner[0].id}}" />
+		{% else %}
+			<fieldset>
+				<legend>Hvilke {{ fylke_id == 3 ? 'bydeler' : 'kommuner' }} gjelder denne avisen for?</legend>
+				<p>Du trenger ikke å legge inn dette nå, det kan du gjøre senere</p>
+				
+				<ol class="list-unstyled">
+				{% for kommune in kommuner %}
+					<li>
+						<label>
+							<input type="checkbox" name="kommuner[]" value="{{ kommune.id }}">
+							{{ kommune.name }}
+						</label>
+					</li>
+				{% endfor %}
+				</ol>
+			</fieldset>
+		{% endif %}
 		
 		<button type="submit" class="btn btn-default">Lagre</button>
 	</form>
