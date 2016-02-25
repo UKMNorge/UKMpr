@@ -1,0 +1,30 @@
+<h2>Legg til en ny lokalavis</h2>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+	<form role="form" action="?page=UKMpr&action=do_create" method="POST">
+	  <div class="form-group">
+	    <label for="name">Navn på avis</label>
+	    <input type="text" class="form-control" name="name" id="name" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="url">Nettsted</label>
+	    <input type="url" class="form-control" name="url" id="url" placeholder="Husk http://" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="email">E-postadresse</label>
+	    <input type="email" class="form-control" name="email" id="email" required>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="type">Type</label>
+	    <select class="form-control" name="type" id="type" required>
+		    <option value="lokal">Lokalavis</option>
+		    <option value="region">Regionsavis</option>
+	    </select>
+	  </div>
+	
+	  <button type="submit" class="btn btn-default">Lagre</button>
+	</form>
+</div>
