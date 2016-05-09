@@ -16,17 +16,17 @@ $id = $SQL->insId();
 
 if( $id > 0 ) {
 	foreach( $_POST['kommuner'] as $kommune_id ) {
-		$sql = new SQLins('ukm_avis_nedslagsfelt');
-		$sql->add('kommune_id', $kommune_id );
-		$sql->add('avis_id', $id );
-		$sql->run();
+		$sql_rel = new SQLins('ukm_avis_nedslagsfelt');
+		$sql_rel->add('kommune_id', $kommune_id );
+		$sql_rel->add('avis_id', $id );
+		$sql_rel->run();
 	}
 }
 
 if( $res === true || $res == 1 ) {
 	$TWIGdata['flashbag'] = array('status'=>'success', 'message'=> $_POST['name'] .' lagt til');
 } else {
-	$TWIGdata['flashbag'] = array('status'=>'danger', 'message'=>'Kunne ikke opprette avisen '. $_POST['name'].'.');
+	$TWIGdata['flashbag'] = array('status'=>'danger', 'message'=>'Kunne ikke opprette avisen '. $_POST['name'].'. Systemet ga følgende feilmelding: '. $SQL->error() );
 }
 
 $VIEW = 'dashboard';
