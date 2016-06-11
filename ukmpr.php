@@ -19,6 +19,9 @@ if(is_admin()) {
 function UKMpr_menu() {
 	UKM_add_menu_page('norge','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr', 'http://ico.ukm.no/contact-menu.png', 11);
 	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
+	UKM_add_menu_page('norge','Pressemelding', 'Pressemelding', 'editor', 'UKMpr_melding','UKMpr_melding', 'http://ico.ukm.no/megaphone-menu.png', 11);
+	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
+	UKM_add_scripts_and_styles('UKMpr_melding', 'UKMpr_scripts_and_styles' );
 }
 
 function UKMpr_scripts_and_styles(){
@@ -26,6 +29,15 @@ function UKMpr_scripts_and_styles(){
 	wp_enqueue_style('WPbootstrap3_css');
 }
 
+function UKMpr_melding() {
+	if( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+		$TWIG['saved'] = update_option('pressemelding', $_POST['pressemelding_editor'] );
+	}
+	$TWIGdata = array('UKM_HOSTNAME' => UKM_HOSTNAME);
+	echo TWIG('pressemelding_pre_editor.html.twig', $TWIGdata, dirname(__FILE__) );
+	wp_editor( stripslashes(get_option('pressemelding')), 'pressemelding_editor', $settings = array() );
+	echo TWIG('pressemelding_post_editor.html.twig', $TWIGdata, dirname(__FILE__) );
+}
 function UKMpr() {
 	# TODO: MOVE TO API
 	require_once(plugin_dir_path(__FILE__).'aviser.class.php');
