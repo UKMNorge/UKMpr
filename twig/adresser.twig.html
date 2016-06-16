@@ -1,0 +1,11 @@
+<h1>Adresser til dine aviser</h1>
+
+{% if aviser.getAllByFylke( fylke )|length > 0 %}
+	<h2>E-postadresser klar for outlook / pc (semikolon-separert)</h2>
+	{% for avis in aviser.getAllByFylke( fylke ) %}{{ avis.getEmail() }};{% endfor %}
+	
+	<h2>E-postadresser klar for mac (kommaseparert)</h2>
+	{% for avis in aviser.getAllByFylke( fylke ) %}{{ avis.getEmail() }},{% endfor %}
+{% else %}
+Det er ikke lagt til noen aviser. Gå til <a href="?page=UKMpr">Lokalaviser</a>
+{% endif %}
