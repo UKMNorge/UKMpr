@@ -12,6 +12,7 @@ $TWIGdata['aviser'] = array();
 if( 'land' == get_option('site_type') ) {
 	$fylker = fylker::getAll();
 	foreach( $fylker as $fylke ) {
+		$aviser->reset();
 		$fylke_aviser = $aviser->getAllByFylke( $fylke->getId() );
 		if( is_array( $fylke_aviser ) ) {
 			$TWIGdata['aviser'] = array_merge( $TWIGdata['aviser'], $fylke_aviser );
