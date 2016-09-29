@@ -17,10 +17,13 @@ if(is_admin()) {
 
 // Regular menu
 function UKMpr_menu() {
-	UKM_add_menu_page('norge','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr', 'http://ico.ukm.no/contact-menu.png', 11);
+	UKM_add_menu_page('ressurser','Markedsføring', 'Markedsføring', 'editor', 'UKMmarketing','UKMmarketing', 'http://ico.ukm.no/megaphone-menu.png', 11);
+
+	UKM_add_submenu_page('UKMmarketing','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr');#, 'http://ico.ukm.no/contact-menu.png', 11);
 	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
-	UKM_add_menu_page('norge','Pressemelding', 'Pressemelding', 'editor', 'UKMpr_melding','UKMpr_melding', 'http://ico.ukm.no/megaphone-menu.png', 11);
-	UKM_add_submenu_page('UKMpr_melding', 'E-postadresser', 'E-postadresser', 'editor', 'UKMpr_adresser', 'UKMpr_adresser');
+	
+	UKM_add_submenu_page('UKMmarketing','Pressemelding', 'Pressemelding', 'editor', 'UKMpr_melding','UKMpr_melding');#, 'http://ico.ukm.no/megaphone-menu.png', 11);
+	UKM_add_submenu_page('UKMmarketing', 'E-postadresser', 'E-postadresser', 'editor', 'UKMpr_adresser', 'UKMpr_adresser');
 	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
 	UKM_add_scripts_and_styles('UKMpr_melding', 'UKMpr_scripts_and_styles' );
 }
@@ -28,6 +31,10 @@ function UKMpr_menu() {
 function UKMpr_scripts_and_styles(){
 	wp_enqueue_script('WPbootstrap3_js');
 	wp_enqueue_style('WPbootstrap3_css');
+}
+
+function UKMmarketing() {
+	
 }
 
 function UKMpr_melding() {
