@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	<h3>husk.ukm.no</h3>
+	<p>UKM Husk er en tjeneste du kan bruke når du er ute på events og vil rekruttere mulige deltakere. Ungdommene kan legge igjen mobilnummeret sitt, og automatisk få en SMS fra arrangørsystemet når påmeldingen åpner.</p> 
+
+	<p>Hvis deltakerne har lagt igjen nummeret sitt på <i>din</i> UKM Husk-side, kan du også sende SMS til de med arrangørsystemet selv.</p>
+	<p><strong>OBS:</strong> Det blir automatisk sendt ut SMSer når påmeldingen åpner. Bruk derfor ikke telefonnumrene til å minne om påmeldingen samme dag selv, da dette kan bli "masete" for deltakerne.</p>
+
+	<p>Rapporten med telefonnummer finner du i <a href="?page=UKMrapport_admin&rapport=husk&kat=personer">rapportmodulen</a>.</p>
+	{% if liste is defined %}
+		<ul class="list-group">
+		{% for person in liste %}
+			<li class="list-group-item"><a href="#" class="UKMSMS">{{ person.mobil }}</a> - {{ person.timestamp.date|date("H:i d.m.y") }}</li>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

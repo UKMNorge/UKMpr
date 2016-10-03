@@ -19,10 +19,10 @@ if(is_admin()) {
 function UKMpr_menu() {
 	UKM_add_menu_page('ressurser','Markedsføring', 'Markedsføring', 'editor', 'UKMmarketing','UKMmarketing', 'http://ico.ukm.no/megaphone-menu.png', 11);
 
-	UKM_add_submenu_page('UKMmarketing','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr');#, 'http://ico.ukm.no/contact-menu.png', 11);
-	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
-	
 	UKM_add_submenu_page('UKMmarketing','Pressemelding', 'Pressemelding', 'editor', 'UKMpr_melding','UKMpr_melding');#, 'http://ico.ukm.no/megaphone-menu.png', 11);
+	UKM_add_submenu_page('UKMmarketing','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr');#, 'http://ico.ukm.no/contact-menu.png', 11);
+	UKM_add_scripts_and_styles('UKMmarketing', 'UKMpr_scripts_and_styles' );
+	
 	UKM_add_submenu_page('UKMmarketing', 'E-postadresser', 'E-postadresser', 'editor', 'UKMpr_adresser', 'UKMpr_adresser');
 	UKM_add_scripts_and_styles('UKMpr', 'UKMpr_scripts_and_styles' );
 	UKM_add_scripts_and_styles('UKMpr_melding', 'UKMpr_scripts_and_styles' );
@@ -34,7 +34,15 @@ function UKMpr_scripts_and_styles(){
 }
 
 function UKMmarketing() {
+	$TWIG = array();
+	require_once('controller/layout.controller.php');
+
+	$VIEW = isset( $_GET['action'] ) ? $_GET['action'] : 'oversikt';
+	$TWIG['tab_active'] = $VIEW;
+	require_once(__DIR__.'/controller/'. $VIEW .'.controller.php');
 	
+	echo TWIG($VIEW .'.html.twig', $TWIG, dirname(__FILE__), true);
+	echo TWIGjs( dirname(__FILE__) );
 }
 
 function UKMpr_melding() {
@@ -70,6 +78,8 @@ function UKMpr() {
 
 	echo TWIG($VIEW. '.twig.html', $TWIGdata, dirname(__FILE__));
 }
+
+
 
 function UKMpr_dash_messages( $messages ) {
 	# TODO: MOVE TO API
