@@ -14,3 +14,5 @@ $tabs[] = (object) array( 'link'		=> 'husk',
 
 
 $TWIG['tabs'] = $tabs;
+
+$TWIG['site_type'] = get_option('site_type');

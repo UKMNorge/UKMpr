@@ -10,7 +10,9 @@
 	<div class="col-xs-12 col-sm-4">
 		{% embed 'forside/husk.html.twig' %}{% endembed %}
 	</div>
-	<div class="col-xs-12 col-sm-4">
-		{% embed 'forside/pressemelding.html.twig' %}{% endembed %}
-	</div>
+	{% if site_type != 'kommune' %}
+		<div class="col-xs-12 col-sm-4">
+			{% embed 'forside/pressemelding.html.twig' %}{% endembed %}
+		</div>
+	{% endif %}
 {% endblock %}
