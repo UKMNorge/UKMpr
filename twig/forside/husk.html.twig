@@ -13,15 +13,15 @@
 		<p><span class="lead">Gå til Husk UKM</span><br>
 			Velg hvilken kommune du vil rekruttere for:</p>
 			{% for kommune in monstring.getKommuner() %}
-				<a href="http://husk.ukm.no/f-{{ kommune.getFylke().getId() }}/k-{{ kommune.getId() }}" class="lead">{{ kommune.getNavn() }}</a><br>
+				<a href="http://husk.ukm.no/f-{{ kommune.getFylke().getId() }}/k-{{ kommune.getId() }}/" class="lead">{{ kommune.getNavn() }}</a><br>
 			{% endfor %}
 	{% elseif monstring.getType() == 'kommune' %}
 		{# SINGELMØNSTRING LOKALT #}
-		<p><span class="lead"><a href="http://husk.ukm.no/f-{{ monstring.getKommuner().first().getFylke().getId() }}/k-{{ monstring.getKommune().getId() }}">Gå til UKM Husk for {{ monstring.getKommune().getNavn() }}</a></p>
+		<p><span class="lead"><a href="http://husk.ukm.no/f-{{ monstring.getKommuner().first().getFylke().getId() }}/k-{{ monstring.getKommune().getId() }}/">Gå til UKM Husk for {{ monstring.getKommune().getNavn() }}</a></p>
 	{% elseif monstring.getType() == 'fylke' %}
-		<p><span class="lead"><a href="http://husk.ukm.no/{{ monstring.getFylke().getLink() }}">Gå til http://husk.ukm.no/{{ monstring.getFylke().getLink() }}/</a></span><br>
+		<p><span class="lead"><a href="http://husk.ukm.no/{{ monstring.getFylke().getLink() }}/">Gå til http://husk.ukm.no/{{ monstring.getFylke().getLink() }}/</a></span><br>
 	{% else %}
-		<p><span class="lead"><a href="http://husk.ukm.no">Gå til UKM Husk uten å velge tilhørighet</a></span><br>
+		<p><span class="lead"><a href="http://husk.ukm.no/">Gå til UKM Husk uten å velge tilhørighet</a></span><br>
 	{% endif %}
 	<small>eller</small><br>
 	<a href="?page=UKMrapport_admin&rapport=husk&kat=personer">vis allerede registrerte mobilnummer i Rapporter</a></p>
