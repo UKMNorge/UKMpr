@@ -9,10 +9,10 @@ class MobilnummerCollection {
 		$this->signer = new Signer($api_key, $api_secret);
 
 		if(UKM_HOSTNAME == 'ukm.dev') {
-			$this->baseFetchURL = 'http://husk.ukm.dev/app_dev.php/api/';
+			$this->baseFetchURL = 'https://husk.ukm.dev/app_dev.php/api/';
 		}
 		else {
-			$this->baseFetchURL = 'http://husk.ukm.no/api/';
+			$this->baseFetchURL = 'https://husk.ukm.no/api/';
 		}
 	}
 
