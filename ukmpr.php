@@ -58,7 +58,6 @@ function UKMpr_melding() {
 }
 
 function UKMpr_adresser() {
-	# TODO: MOVE TO API
 	require_once('UKM/aviser.class.php');
 
 	$TWIGdata = array();
@@ -70,8 +69,7 @@ function UKMpr_adresser() {
 }
 
 function UKMpr() {
-	# TODO: MOVE TO API
-	require_once(plugin_dir_path(__FILE__).'aviser.class.php');
+	require_once('UKM/aviser.class.php');
 
 	$TWIGdata = array();
 	$VIEW = isset( $_GET['action'] ) ? $_GET['action'] : 'dashboard';
@@ -84,8 +82,7 @@ function UKMpr() {
 
 
 function UKMpr_dash_messages( $messages ) {
-	# TODO: MOVE TO API
-	require_once(plugin_dir_path(__FILE__).'aviser.class.php');
+	require_once('UKM/aviser.class.php');
 	$aviser = new aviser();
 	$pl = new monstring( get_option('pl_id') );
 	$kommuner = $pl->get('kommuner');
