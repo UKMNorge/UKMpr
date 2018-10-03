@@ -11,8 +11,14 @@ Author URI: http://www.ukm-norge.no
 if(is_admin()) {
 	if( get_option('site_type') != false ) {
 		add_action('UKM_admin_menu', 'UKMpr_menu');
+		add_filter('UKM_admin_menu_conditions', 'UKMpr_menu_conditions');
 		add_filter('UKMWPDASH_messages', 'UKMpr_dash_messages');
 	}
+}
+function UKMpr_menu_conditions( $_CONDITIONS ) {
+	return array_merge( $_CONDITIONS, 
+		['UKMmarketing' => 'monstring_er_registrert']
+	);
 }
 
 // Regular menu
