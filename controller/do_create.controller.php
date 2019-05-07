@@ -11,8 +11,7 @@ $SQL->add('email', $_POST['email']);
 $SQL->add('fylke', $fylke);
 $SQL->add('type', $_POST['type']);
 
-$res = $SQL->run();
-$id = $SQL->insId();
+$id = $SQL->run();
 
 if( $id > 0 ) {
 	foreach( $_POST['kommuner'] as $kommune_id ) {
@@ -23,7 +22,7 @@ if( $id > 0 ) {
 	}
 }
 
-if( $res === true || $res == 1 ) {
+if( $id ) {
 	$TWIGdata['flashbag'] = array('status'=>'success', 'message'=> $_POST['name'] .' lagt til');
 } else {
 	$TWIGdata['flashbag'] = array('status'=>'danger', 'message'=>'Kunne ikke opprette avisen '. $_POST['name'].'. Systemet ga følgende feilmelding: '. $SQL->error() );
