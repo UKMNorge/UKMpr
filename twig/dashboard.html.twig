@@ -1,0 +1,104 @@
+<h2 style="margin-top: .8em;">Markedsføring</h2>
+<ol class="list-group" style="width: 95%;">
+	<li class="list-group-item">
+		<img src="//ico.ukm.no/avis-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="admin.php?page=UKMpr_lokalaviser">Registrer dine lokalaviser</a>
+		</h3>
+		<p>
+			Når du registrerer dine lokalaviser her, sørger du for at de får relevante pressemeldinger fra oss.
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+	<li class="list-group-item">
+		<img src="//ico.ukm.no/ipad-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="admin.php?page=UKMpr_husk">"Husk UKM"</a>
+		</h3>
+		<p>
+			Ta med deg et nettbrett ut på skolebesøk og lignende, så kan potensielle deltakere
+			legge igjen mobilnummeret sitt. Vi sender de automatisk en sms når påmeldingen åpner,
+			og gjennom <a href="admin.php?page=UKMrapport_admin&rapport=husk&kat=helarig">rapporten</a> kan du sende de meldinger selv også.
+		</p>
+		<div class="clearfix"></div>
+	</li>
+</ol>
+
+<h2 style="margin-top: .8em;">Materiell</h2>
+<ol class="list-group" style="width: 95%;">
+	<li class="list-group-item">
+		<img src="//ico.ukm.no/kolli-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="http://ukm.adprofil.no" target="_blank">Bestill ferdig materiell</a>
+		</h3>
+		<p>
+			Her kan du bestille gratis trykksaker, eller kjøpe andre UKM-produkter som t-skjorter, drops, bannere osv.
+		</p>
+		<p class="small">
+			<b>OBS:</b>
+			Du vil få spørsmål om brukernavn og passord. Dette oppretter du selv når du fullfører din bestilling. 
+			Brukernavn og passord du har fått fra UKM Norge gjelder ikke i nettbutikken.
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+	
+	
+	<li class="list-group-item">
+		<img src="//ico.ukm.no/printer-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="http://instrato.no/start/ukm-autologin.php?uid={{user_id}}&key={{user_key}}" target="_blank">Tilpass og skriv ut materiell</a>
+		</h3>
+		<p>
+			Ferdigmalene gjør at du raskt og enkelt kan lage dine egne plakater, program, facebook-bannere og lignende.
+		</p>
+		<p class="small">
+			&nbsp;
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+
+	<li class="list-group-item">
+		<img src="//ico.ukm.no/palette-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="https://org.ukm.no/grafisk-profil/" target="_blank">Grafiske elementer og logoer</a>
+		</h3>
+		<p>
+			Ønsker du å designe ting helt selv, eller trenger en UKM-logo finner du de i 
+			<a href="https://org.ukm.no/grafisk-profil/" target="_blank">vår grafiske profil på organisasjonssiden</a>.
+		</p>
+		<p class="small">
+			<b>TIPS:</b>
+			Sjekk ut 
+			<a href="http://instrato.no/start/ukm-autologin.php?uid={{user_id}}&key={{user_key}}" target="_blank">ferdigmalene</a>
+			før du lager egne ting.
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+	
+	{% if eksternbruker is defined %}
+		<li class="list-group-item">
+			<img src="//ico.ukm.no/geek-128.png" width="100" class="pull-right float-right" />
+			<h3>
+				Gi andre tilgang til design-generatoren
+			</h3>
+			<p>
+				Hvis andre skal lage tilpasset materiell for deg, kan du la de få dette brukernavnet og passordet.
+			</p>
+
+			<p>
+				<b>Innlogging:</b> <a href="http://instrato.no" target="_blank">instrato.no</a>
+				<br />
+				<b>Brukernavn:</b> {{eksternbruker.navn}}
+				<br />
+				<b>Passord:</b> {{eksternbruker.pass}}
+			</p>
+	
+			<div class="clearfix"></div>
+		</li>
+	{% endif %}
+	
+</ol>
