@@ -37,7 +37,7 @@ class UKMpr extends UKMWPmodul
 			'editor',
 			'UKMmarketing',
 			['UKMpr', 'renderAdmin'],
-			'//ico.ukm.no/megaphone-menu.png',
+			'dashicons-megaphone',#'//ico.ukm.no/megaphone-menu.png',
 			40
 		);
 		add_action(
