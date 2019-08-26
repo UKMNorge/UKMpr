@@ -149,21 +149,25 @@ class UKMpr extends UKMWPmodul
 				}
 			}
 		} elseif (get_option('site_type') == 'fylke') {
-			$count = 0;
-			foreach ($monstring->getFylke()->getKommuner()->getAll() as $kommune) {
-				if (!$aviser->hasRelation($kommune->getId())) {
-					$count++;
-				}
-			}
-			if ($count > 0) {
-				$percent_missing = (100 / $monstring->getFylke()->getKommuner()->getAntall()) * $count;
-				$meldinger[] = array(
-					'level' 	=> 'alert-' . ($percent_missing > 15 ? 'error' : 'warning'),
-					'link' 		=> 'admin.php?page=UKMpr',
-					'header' 	=> $count . ' ' . ($monstring->getFylke()->erOslo() ? 'bydeler' : 'kommuner') . ' mangler info om lokalaviser!',
-					'body' 		=> 'Velg "Lokalaviser" i menyen til venstre'
-				);
-			}
+            try {
+                $count = 0;
+                foreach ($monstring->getFylke()->getKommuner()->getAll() as $kommune) {
+                    if (!$aviser->hasRelation($kommune->getId())) {
+                        $count++;
+                    }
+                }
+                if ($count > 0) {
+                    $percent_missing = (100 / $monstring->getFylke()->getKommuner()->getAntall()) * $count;
+                    $meldinger[] = array(
+                        'level' 	=> 'alert-' . ($percent_missing > 15 ? 'error' : 'warning'),
+                        'link' 		=> 'admin.php?page=UKMpr',
+                        'header' 	=> $count . ' ' . ($monstring->getFylke()->erOslo() ? 'bydeler' : 'kommuner') . ' mangler info om lokalaviser!',
+                        'body' 		=> 'Velg "Lokalaviser" i menyen til venstre'
+                    );
+                }
+            } catch( Exception $e ) {
+                return $meldinger;
+            }
 		}
 
 		return $meldinger;
