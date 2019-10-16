@@ -8,18 +8,21 @@ Version: 2.0
 Author URI: http://www.ukm-norge.no
 */
 
+use UKMNorge\Geografi\Fylker;
+use UKMNorge\Geografi\Kommune;
+use UKMNorge\Wordpress\Modul;
 
-require_once('UKM/wp_modul.class.php');
+require_once('UKM/Autoloader.php');
 
-class UKMpr extends UKMWPmodul
+class UKMpr extends Modul
 {
 	public static $action = 'dashboard';
 	public static $path_plugin = null;
 
 	public static function hook()
 	{
+        add_action('user_admin_menu', ['UKMpr', 'meny']);
 		if (in_array(get_option('site_type'), ['kommune', 'fylke', 'land'])) {
-			add_action('admin_menu', ['UKMpr', 'meny']);
 			add_filter('UKMWPDASH_messages', ['UKMpr', 'meldinger']);
 		}
 	}
@@ -60,6 +63,7 @@ class UKMpr extends UKMWPmodul
 			);
 		}
 
+        /*
 		$page_lokalaviser = add_submenu_page(
 			'UKMmarketing',
 			'Lokalaviser',
@@ -84,7 +88,8 @@ class UKMpr extends UKMWPmodul
 		add_action(
 			'admin_print_styles-' . $page_husk,
 			['UKMpr', 'scripts_and_styles']
-		);
+        );
+        */
 	}
 
 	/**
@@ -133,11 +138,12 @@ class UKMpr extends UKMWPmodul
 		require_once('UKM/aviser.class.php');
 		require_once('UKM/monstring.class.php');
 
-		$aviser = new aviser();
-		$monstring = new monstring_v2(get_option('pl_id'));
+		$aviser = new aviser();        
 
 		if (get_option('site_type') == 'kommune') {
-			foreach ($monstring->getKommuner()->getAll() as $kommune) {
+            $kommuner = explode(',', get_option('kommuner') );
+			foreach ( $kommuner as $kommune_id ) {
+                $kommune = new Kommune( $kommune_id );
 				if (!$aviser->hasRelation($kommune->getId())) {
 					$meldinger[] = array(
 						'level' 	=> 'alert-error',
@@ -151,11 +157,13 @@ class UKMpr extends UKMWPmodul
 		} elseif (get_option('site_type') == 'fylke') {
             try {
                 $count = 0;
-                foreach ($monstring->getFylke()->getKommuner()->getAll() as $kommune) {
+                $fylke = Fylker::getById( get_option('fylke') );
+                foreach ($fylke->getKommuner()->getAll() as $kommune) {
                     if (!$aviser->hasRelation($kommune->getId())) {
                         $count++;
                     }
                 }
+                /*
                 if ($count > 0) {
                     $percent_missing = (100 / $monstring->getFylke()->getKommuner()->getAntall()) * $count;
                     $meldinger[] = array(
@@ -165,6 +173,7 @@ class UKMpr extends UKMWPmodul
                         'body' 		=> 'Velg "Lokalaviser" i menyen til venstre'
                     );
                 }
+                */
             } catch( Exception $e ) {
                 return $meldinger;
             }
