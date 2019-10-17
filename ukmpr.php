@@ -37,7 +37,7 @@ class UKMpr extends Modul
 		$page = add_menu_page(
 			'Markedsføring',
 			'Markedsføring',
-			'editor',
+			'subscriber',
 			'UKMmarketing',
 			['UKMpr', 'renderAdmin'],
 			'dashicons-megaphone',#'//ico.ukm.no/megaphone-menu.png',
