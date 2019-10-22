@@ -22,7 +22,7 @@ class UKMpr extends Modul
 	public static function hook()
 	{
         add_action('user_admin_menu', ['UKMpr', 'meny']);
-		if (in_array(get_option('site_type'), ['kommune', 'fylke', 'land'])) {
+		if (get_option('pl_id')){
 			add_filter('UKMWPDASH_messages', ['UKMpr', 'meldinger']);
 		}
 	}
@@ -48,7 +48,7 @@ class UKMpr extends Modul
 			['UKMpr', 'scripts_and_styles']
 		);
 
-		if (in_array(get_option('site_type'), ['fylke', 'land'])) {
+		if (in_array(get_option('pl_eier_type'), ['fylke', 'land'])) {
 			$page_pressemelding = add_submenu_page(
 				'UKMmarketing',
 				'Pressemelding',
@@ -140,7 +140,7 @@ class UKMpr extends Modul
 
 		$aviser = new aviser();        
 
-		if (get_option('site_type') == 'kommune') {
+		if (get_option('pl_eier_type') == 'kommune') {
             $kommuner = explode(',', get_option('kommuner') );
 			foreach ( $kommuner as $kommune_id ) {
                 $kommune = new Kommune( $kommune_id );
@@ -154,7 +154,7 @@ class UKMpr extends Modul
 					break;
 				}
 			}
-		} elseif (get_option('site_type') == 'fylke') {
+		} elseif (get_option('pl_eier_type') == 'fylke') {
             try {
                 $count = 0;
                 $fylke = Fylker::getById( get_option('fylke') );

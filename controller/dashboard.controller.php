@@ -39,7 +39,7 @@ UKMpr::addViewData(
 /**
  * EKSTERN-BRUKERE TIL INSTRATO
  */
-if (get_option('site_type') == 'fylke') {
+if (get_option('pl_eier_type') == 'fylke') {
 	require_once('UKM/monstring.class.php');
 	$monstring = new monstring_v2(get_option('pl_id'));
 

@@ -14,7 +14,3 @@ UKMpr::addViewData(
 	'aviser',
 	$aviser->getAllByFylke( $monstring->getFylke()->getId() )
 );
-UKMpr::addViewData(
-	'site_type',
-	get_option('site_type')
-);

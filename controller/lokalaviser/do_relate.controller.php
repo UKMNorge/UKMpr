@@ -3,6 +3,7 @@ require_once('UKM/monstring.class.php');
 require_once('UKM/aviser.class.php');
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+    throw new Exception('Kontakt UKM Norge. Funksjonen må re-integreres for å håndtere omplassering til user-admin');
 	$monstring = new monstring_v2( get_option('pl_id') );
 
 	$aviser = new aviser();
