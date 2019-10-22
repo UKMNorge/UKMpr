@@ -1,18 +1,35 @@
-{% extends 'layout.html.twig' %}
+<h2>"Husk UKM"</h2>
+<p class="lead">Husk UKM er en enkel tjeneste for å samle inn mobilnummer til ungdommer.
+</p>
+<p>Alle mobilnummer samlet inn i dette systemet, får automatisk en sms når påmeldingen åpner. 
+                        I tillegg kan du velge å sende sms til de om andre ting, skulle du ønske det.
+</p>
 
-{% block content %}
 
-	<h3>husk.ukm.no</h3>
-	<p>UKM Husk er en tjeneste du kan bruke når du er ute på events og vil rekruttere mulige deltakere. Ungdommene kan legge igjen mobilnummeret sitt, og automatisk få en SMS fra arrangørsystemet når påmeldingen åpner.</p> 
+{% if monstring.erFellesMonstring() %}
+    <p class="lead">Velg hvilken kommune du vil rekruttere for:</p>
+    <ol class="list-group">
+        {% for kommune in monstring.getKommuner().getAll() %}
+            <li class="list-group-item">
+                <a href="//husk.{{ UKM_HOSTNAME }}/f-{{ kommune.getFylke().getId() }}/k-{{ kommune.getId() }}/" target="_blank">{{ kommune.getNavn() }}</a>
+            </li>
+        {% endfor %}
+    </ol>
+{% elseif monstring.getType() == 'kommune' %}{# SINGELMØNSTRING LOKALT #}<p></p>
+    <p>
+        <a class="btn btn-primary" target="_blank" href="//husk.{{ UKM_HOSTNAME }}/f-{{ monstring.getKommuner().first().getFylke().getId() }}/k-{{ monstring.getKommune().getId() }}/">Gå til Husk UKM</a>
+    </p>
+{% elseif monstring.getType() == 'fylke' %}
+    <p>
+        <a class="btn btn-primary" target="_blank" href="//husk.{{ UKM_HOSTNAME }}/{{ monstring.getFylke().getLink() }}/">Gå til https://husk.ukm.no/{{ monstring.getFylke().getLink() }}/</a>
+    </p>
+{% else %}
+    <p>
+        <a class="btn btn-primary" target="_blank" href="//husk.{{ UKM_HOSTNAME }}/">Gå til Husk UKM</a>
+    </p>
+{% endif %}
 
-	<p>Hvis deltakerne har lagt igjen nummeret sitt på <i>din</i> UKM Husk-side, kan du også sende SMS til de med arrangørsystemet selv.</p>
-	<p><strong>OBS:</strong> Det blir automatisk sendt ut SMSer når påmeldingen åpner. Bruk derfor ikke telefonnumrene til å minne om påmeldingen samme dag selv, da dette kan bli "masete" for deltakerne.</p>
-
-	<p>Rapporten med telefonnummer finner du i <a href="?page=UKMrapport_admin&rapport=husk&kat=helarig">rapportmodulen</a>.</p>
-	{% if liste is defined %}
-		<ul class="list-group">
-		{% for person in liste %}
-			<li class="list-group-item"><a href="#" class="UKMSMS">{{ person.mobil }}</a> - {{ person.timestamp.date|date("H:i d.m.y") }}</li>
-		{% endfor %}
-	{% endif %}
-{% endblock %}
+<p>
+    Registrerte mobilnummer finner du i
+    <a href="?page=UKMrapport_admin&rapport=husk&kat=helarig">rapporten</a>.
+</p>

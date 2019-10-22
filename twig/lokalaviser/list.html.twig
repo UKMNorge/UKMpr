@@ -1,0 +1,42 @@
+<h2>
+    Lokalaviser
+    	&nbsp; &nbsp;
+    <a class="btn btn-primary" href="?page={{ GET('page') }}&action=create">Legg til en ny avis</a>
+</h2>
+
+{% include "wp_modul.flashbag.html.twig" %}
+
+{% if aviser|length == 0 %}
+    <p>Det er ikke lagt til noen aviser i ditt fylke enda.
+        <a href="admin.php?page={{ GET('page') }}&action=create">Legg til den første?</a>
+    {% else %}
+        <form action="?page={{ GET('page') }}&action=do_relate" method="POST">
+            {% for kommune in monstring.getKommuner().getAll() %}
+                <div class="col-xs-12 col-sm-6">
+                    <fieldset>
+                        <legend>{{ kommune.name }}</legend>
+                        <ol class="list-unstyled">
+                            {% for avis in aviser %}
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="kommune_{{kommune.id}}[]" value="{{ avis.getId() }}" {{ avis.isRelated( kommune.id ) ? 'checked' : '' }}/>
+                                        {{ avis.getName() }}
+                                        <i class="label label-{{ avis.getType() == 'lokal' ? 'info' : 'warning' }}">{{ avis.getType() }}</i>
+                                    </label>
+                                    <small>{{ avis.getEmail() }}</small>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </fieldset>
+                    <p>&nbsp;</p>
+                </div>
+                {% if loop.index is divisible by( 2 ) %}
+                    <div class="clearfix"></div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="clearfix"></div>
+
+            <input class="btn btn-success" type="submit" value="Lagre"/>
+        </form>
+    {% endif %}

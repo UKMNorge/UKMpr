@@ -1,7 +1,7 @@
 <h2>Legg til en ny avis</h2>
 
 <div class="col-xs-12 col-sm-8 col-md-6">
-	<form role="form" action="?page=UKMpr&action=do_create" method="POST">
+	<form role="form" action="?page={{ GET('page') }}&action=do_create" method="POST">
 		<div class="form-group">
 			<label for="name">Navn på avis</label>
 			<input type="text" class="form-control" name="name" id="name" required>
@@ -21,24 +21,23 @@
 			<label for="type">Type</label>
 			<select class="form-control" name="type" id="type" required>
 				<option value="lokal">Lokalavis</option>
-				<option value="region">Regionsavis</option>
+				<option value="region">Regionavis</option>
 			</select>
 		</div>
 		
 		
 		{% if kommuner|length == 1 %}
-			<input type="hidden" name="kommuner[]" value="{{kommuner[0].id}}" />
+			<input type="hidden" name="kommuner[]" value="{{ kommuner[0].getId() }}" />
 		{% else %}
 			<fieldset>
-				<legend>Hvilke {{ fylke_id == 3 ? 'bydeler' : 'kommuner' }} gjelder denne avisen for?</legend>
-				<p>Du trenger ikke å legge inn dette nå, det kan du gjøre senere</p>
+				<legend>Hvilke {{ monstring.getFylke().erOslo() ? 'bydeler' : 'kommuner' }} gjelder denne avisen for?</legend>
 				
 				<ol class="list-unstyled">
 				{% for kommune in kommuner %}
 					<li>
 						<label>
-							<input type="checkbox" name="kommuner[]" value="{{ kommune.id }}">
-							{{ kommune.name }}
+							<input type="checkbox" name="kommuner[]" value="{{ kommune.getId() }}">
+							{{ kommune.getNavn() }}
 						</label>
 					</li>
 				{% endfor %}
