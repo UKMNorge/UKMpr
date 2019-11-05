@@ -147,9 +147,10 @@ class UKMpr extends Modul
 				if (!$aviser->hasRelation($kommune->getId())) {
 					$meldinger[] = array(
 						'level' 	=> 'alert-error',
-						'link' 		=> 'admin.php?page=UKMpr',
+						'link' 		=> '/wp-admin/user/admin.php?page=UKMmarketing',
 						'header' 	=> 'Info om lokalaviser mangler!',
-						'body' 		=> 'Velg "Lokalaviser" i menyen til venstre'
+                        'body' 		=> 'Velg "Lokalaviser" i menyen til venstre',
+                        'target'    => '_blank'
 					);
 					break;
 				}
