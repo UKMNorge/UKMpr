@@ -143,7 +143,7 @@ class UKMpr extends Modul
 		if (get_option('pl_eier_type') == 'kommune') {
             $kommuner = explode(',', get_option('kommuner') );
 			foreach ( $kommuner as $kommune_id ) {
-                $kommune = new Kommune( $kommune_id );
+                $kommune = new Kommune( (Int) $kommune_id );
 				if (!$aviser->hasRelation($kommune->getId())) {
 					$meldinger[] = array(
 						'level' 	=> 'alert-error',
@@ -158,7 +158,7 @@ class UKMpr extends Modul
 		} elseif (get_option('pl_eier_type') == 'fylke') {
             try {
                 $count = 0;
-                $fylke = Fylker::getById( get_option('fylke') );
+                $fylke = Fylker::getById( (Int) get_option('fylke') );
                 foreach ($fylke->getKommuner()->getAll() as $kommune) {
                     if (!$aviser->hasRelation($kommune->getId())) {
                         $count++;
