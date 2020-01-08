@@ -8,9 +8,11 @@ Version: 2.0
 Author URI: http://www.ukm-norge.no
 */
 
+use UKMNorge\Arrangement\Arrangement;
 use UKMNorge\Geografi\Fylker;
 use UKMNorge\Geografi\Kommune;
 use UKMNorge\Wordpress\Modul;
+use UKMNorge\Avis\Aviser;
 
 require_once('UKM/Autoloader.php');
 
@@ -23,6 +25,7 @@ class UKMpr extends Modul
 	{
         add_action('user_admin_menu', ['UKMpr', 'meny']);
 		if (get_option('pl_id')){
+            add_action('admin_menu', ['UKMpr', 'menyArrangement'],1000);
 			add_filter('UKMWPDASH_messages', ['UKMpr', 'meldinger']);
 		}
 	}
@@ -61,35 +64,57 @@ class UKMpr extends Modul
 				'admin_print_styles-' . $page_pressemelding,
 				['UKMpr', 'scripts_and_styles']
 			);
+            /*
+            $page_lokalaviser = add_submenu_page(
+                'UKMmonstring',
+                'Lokalaviser',
+                'Lokalaviser',
+                'editor',
+                'UKMpr_lokalaviser',
+                ['UKMpr', 'renderLokalaviser']
+            );
+            add_action(
+                'admin_print_styles-' . $page_lokalaviser,
+                ['UKMpr', 'scripts_and_styles']
+            );
+            $page_husk = add_submenu_page(
+                'UKMmarketing',
+                'Husk UKM',
+                'Husk UKM',
+                'editor',
+                'UKMpr_husk',
+                ['UKMpr', 'renderHusk']
+            );
+            add_action(
+                'admin_print_styles-' . $page_husk,
+                ['UKMpr', 'scripts_and_styles']
+            );
+            */
 		}
+    }
 
-        /*
-		$page_lokalaviser = add_submenu_page(
-			'UKMmarketing',
-			'Lokalaviser',
-			'Lokalaviser',
-			'editor',
-			'UKMpr_lokalaviser',
-			['UKMpr', 'renderLokalaviser']
-		);
-		add_action(
-			'admin_print_styles-' . $page_lokalaviser,
-			['UKMpr', 'scripts_and_styles']
-		);
-
-		$page_husk = add_submenu_page(
-			'UKMmarketing',
-			'Husk UKM',
-			'Husk UKM',
-			'editor',
-			'UKMpr_husk',
-			['UKMpr', 'renderHusk']
-		);
-		add_action(
-			'admin_print_styles-' . $page_husk,
-			['UKMpr', 'scripts_and_styles']
-        );
-        */
+    /**
+     * Meny for arrangementene
+     *
+     * @return void
+     */
+    public static function menyArrangement() {
+        $arrangement = new Arrangement(intval(get_option('pl_id')));
+        if( in_array($arrangement->getEierType(), ['fylke', 'land']) && $arrangement->erMonstring() ) {
+            $page_pressemelding = add_submenu_page(
+                'UKMmonstring',
+                'Pressemelding',
+                'Pressemelding',
+                'editor',
+                'UKMpressemelding',
+                ['UKMpr', 'renderPressemelding'],
+                100
+            );
+            add_action(
+                'admin_print_styles-' . $page_pressemelding,
+                ['UKMpr', 'scripts_and_styles']
+            );
+        }
 	}
 
 	/**
@@ -124,7 +149,7 @@ class UKMpr extends Modul
 	 */
 	public static function renderPressemelding()
 	{
-		require_once( static::getPluginPath() .'controller/pressemelding.controller.php');
+		static::include('controller/pressemelding.controller.php');
 	}
 
 	/**
@@ -135,10 +160,7 @@ class UKMpr extends Modul
 	 */
 	public static function meldinger($meldinger)
 	{
-		require_once('UKM/aviser.class.php');
-		require_once('UKM/monstring.class.php');
-
-		$aviser = new aviser();        
+		$aviser = new Aviser();        
 
 		if (get_option('pl_eier_type') == 'kommune') {
             $kommuner = explode(',', get_option('kommuner') );
