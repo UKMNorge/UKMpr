@@ -102,7 +102,7 @@ class UKMpr extends Modul
         $arrangement = new Arrangement(intval(get_option('pl_id')));
         if( in_array($arrangement->getEierType(), ['fylke', 'land']) && $arrangement->erMonstring() ) {
             $page_pressemelding = add_submenu_page(
-                'UKMmonstring',
+                'index.php',
                 'Pressemelding',
                 'Pressemelding',
                 'editor',
