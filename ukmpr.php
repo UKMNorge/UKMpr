@@ -160,6 +160,7 @@ class UKMpr extends Modul
 	 */
 	public static function meldinger($meldinger)
 	{
+        return $meldinger;
 		$aviser = new Aviser();        
 
 		if (get_option('pl_eier_type') == 'kommune') {
