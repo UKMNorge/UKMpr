@@ -1,5 +1,18 @@
 <h2 style="margin-top: .8em;">Markedsføring</h2>
 <ol class="list-group" style="width: 95%;">
+    {% if is_super_admin %}
+	<li class="list-group-item superadmin">
+		<img src="//ico.ukm.no/avis-128.png" width="100" class="pull-right float-right" />
+		<h3>
+			<a href="admin.php?page=UKMmarketing&action=some">Sosiale medier</a>
+		</h3>
+		<p>
+			Her kan du se publiseringsplanen, hvilke idéer det jobbes med, og hvordan du selv kan sende inn idéer.
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+    {% endif %}
 	<li class="list-group-item">
 		<img src="//ico.ukm.no/avis-128.png" width="100" class="pull-right float-right" />
 		<h3>
