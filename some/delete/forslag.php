@@ -34,9 +34,9 @@ if (isset($_POST['alert']) && $_POST['alert'] == 'true') {
                 'Hei! Dette forslaget har blitt fjernet fra idé-listen for sosiale medier.'
             )
         );
-        $message->getBlocks()->add(
-            Template::getStatusSuggestionPreview( $message, $forslag )
-        );
+
+        // Legg til standard-preview for forslag
+        Template::getStatusSuggestionPreview( $message, $forslag );
 
         $res = Chat::post($message);
 
