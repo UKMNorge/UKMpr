@@ -62,7 +62,7 @@
                                     <tr>
                                         <th>{{ event.getTimetamp().format('d.m H:i') }}</th>
                                         <th>{{ event.getOppsummering() }}</th>
-                                        <th>{{ event.getEierLink() }}</th>
+                                        <th>{{ event.getEierLink()|raw }}</th>
                                     </tr>
                                 {% endfor %}
                             </tbody>
