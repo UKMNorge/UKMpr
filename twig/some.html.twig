@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for event in ide.getLog().getAll() %}
+                                {% for event in forslag.getLog().getAll() %}
                                     <tr>
                                         <th>{{ event.getTimetamp().format('d.m H:i') }}</th>
                                         <th>{{ event.getOppsummering() }}</th>
