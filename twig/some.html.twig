@@ -60,9 +60,9 @@
                             <tbody>
                                 {% for event in forslag.getLog().getAll() %}
                                     <tr>
-                                        <th>{{ event.getTimetamp().format('d.m H:i') }}</th>
-                                        <th>{{ event.getOppsummering() }}</th>
-                                        <th>{{ event.getEierLink()|raw }}</th>
+                                        <td>{{ event.getTimestamp().format('d.m H:i') }}</td>
+                                        <td>{{ event.getOppsummering() }}</td>
+                                        <td>{{ event.getEierLink()|raw }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
