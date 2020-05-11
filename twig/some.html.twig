@@ -48,7 +48,26 @@
                     </div>
                 </div>
                 <div class="row" id="data_{{forslag.getId()}}" style="display:none; margin-top:1em; margin-bottom: 1em;">
-                    <div class="col-xs-12">Her kommer det mer informasjon</div>
+                    <div class="col-xs-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Dato</th>
+                                    <th>Beskrivelse</th>
+                                    <th>Av</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for event in ide.getLog().getAll() %}
+                                    <tr>
+                                        <th>{{ event.getTimetamp().format('d.m H:i') }}</th>
+                                        <th>{{ event.getOppsummering() }}</th>
+                                        <th>{{ event.getEierLink() }}</th>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </li>
         {% else %}
