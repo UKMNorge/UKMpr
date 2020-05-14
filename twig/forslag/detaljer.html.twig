@@ -1,0 +1,62 @@
+<div class="pull-right">
+    <a href="?page={{GET('page')}}&action={{GET('action')}}" class="btn btn-ukm btn-xs" style="margin-right: 1em;">Til oversikten</a>
+</div>
+<h2>
+	{{forslag.getHva()}}
+	<small>
+		av
+		{{ forslag.getEier().getLink()|raw }}
+	</small>
+</h2>
+
+<p>
+	<b>{{ forslag.getPubliseringsdato()|dato('d. M') }}</b>
+	&nbsp;
+	{% for kanal in forslag.getKanaler().getAll() %}
+		<label class="label small" style="background-color: {{kanal.getFarge()}}">{{kanal.getNavn()}}</label>
+	{% endfor %}
+</p>
+
+<h3>Tekster</h3>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Kanal</th>
+			<th>Status</th>
+			<th>Tekst</th>
+			<th>Notater</th>
+			<th>Ansvarlig</th>
+		</tr>
+	</thead>
+	<tbody>
+        {% for tekst in forslag.getTekster().getAll() %}
+            <tr>
+                <th>{{ tekst.getKanal().getEmoji() ~' '~ tekst.getKanal().getNavn() }}</th>
+                <td>{{ tekst.getStatus() }}</td>
+                <td>{{ tekst.getTekst() }}</td>
+                <td>{{ tekst.getNotater() }}</td>
+                <td>{{ tekst.getEier().getLink()|raw }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Logg</h3>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Dato</th>
+			<th>Beskrivelse</th>
+			<th>Av</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for event in forslag.getLog().getAll() %}
+			<tr>
+				<td>{{ event.getTimestamp().format('d.m H:i') }}</td>
+				<td>{{ event.getOppsummering() }}</td>
+				<td>{{ event.getEierLink()|raw }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

@@ -21,28 +21,33 @@ try {
 
 if (isset($_POST['alert']) && $_POST['alert'] == 'true') {
     try {
-        $channel = Conversations::startWithUser($forslag->getEierId());
+        $channel = Conversations::startWithUser($forslag->getEier()->getSlackId());
+
+        $tekst = 'Hei! Dette forslaget har blitt fjernet fra idé-listen for sosiale medier.';
 
         $message = new Message(
             $channel->channel->id,
             new PlainText(
-                'Hei! Dette forslaget har blitt fjernet fra idé-listen for sosiale medier.'
+                $tekst
             )
         );
-        $block = new Section(
-            new Markdown(
-                'Hei! Dette forslaget har blitt fjernet fra idé-listen for sosiale medier.'
+        $message->getBlocks()->add(
+            new Section(
+                new Markdown(
+                    $tekst .'\n'.'>>>'
+                )
             )
         );
+        
 
         // Legg til standard-preview for forslag
         Template::getStatusSuggestionPreview( $message, $forslag );
 
         $res = Chat::post($message);
 
-        $msg .= ' ' . $forslag->getEierLink() . ' er varslet.';
-        UKMpr::getFlash()->success($forslag->getEierLink() . ' er varslet');
+        $msg .= ' ' . $forslag->getEier()->getLink() . ' er varslet.';
+        UKMpr::getFlash()->success($forslag->getEier()->getLink() . ' er varslet');
     } catch (Exception $e) {
-        UKMpr::getFlash()->error('Kunne ikke varsle ' . $forslag->getEierLink() . ". Systemet sa: \r\n\r\n " . $e->getMessage());
+        UKMpr::getFlash()->error('Kunne ikke varsle ' . $forslag->getEier()->getLink() . ". Systemet sa: \r\n\r\n " . $e->getMessage());
     }
 }

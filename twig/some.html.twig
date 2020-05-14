@@ -42,9 +42,11 @@
                         </a>
                     </div>
                     <div class="col-xs-2 col-md-1" align="right">
-                        <a href="?page={{GET('page')}}&action={{GET('action')}}&forslag_delete={{forslag.getId()}}" class="btn btn-xs btn-danger btn-ukm">
-                            slett
-                        </a>
+                        {% if is_super_admin %}
+                            <a href="?page={{GET('page')}}&action={{GET('action')}}&forslag_delete={{forslag.getId()}}" class="btn btn-xs btn-danger btn-ukm">
+                                slett
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row" id="data_{{forslag.getId()}}" style="display:none; margin-top:1em; margin-bottom: 1em;">

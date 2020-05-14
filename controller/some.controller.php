@@ -5,11 +5,13 @@ use UKMNorge\Some\Forslag\Ideer;
 
 App::initFromBotToken(SLACK_BOT_TOKEN);
 
-if (isset($_GET['forslag_delete'])) {
+if( isset($_GET['forslag'])) {
+    UKMpr::addViewData('forslag', Ideer::getById(intval($_GET['forslag'])));
+    UKMpr::setAction('forslag/detaljer');
+} elseif (isset($_GET['forslag_delete'])) {
     UKMpr::addViewData('forslag', Ideer::getById($_GET['forslag_delete']));
     UKMpr::setAction('forslag/delete');
 } else {
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         switch ($_POST['action']) {
             // FORSLAG: DELETE

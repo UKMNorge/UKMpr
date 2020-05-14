@@ -12,7 +12,7 @@
     <div class="form-group">
         <label>
             <input type="checkbox" class="form-control" name="alert" value="true" />
-            Varsle {{ forslag.getEierLink()|raw }} om at ideen er slettet
+            Varsle {{ forslag.getEier().getLink()|raw }} om at ideen er slettet
         </label>
     </div>
 
