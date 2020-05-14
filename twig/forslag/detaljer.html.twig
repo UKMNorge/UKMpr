@@ -13,7 +13,7 @@
         {% for tekst in forslag.getTekster().getAll() %}
             <tr>
                 <th>{{ tekst.getKanal().getEmoji() ~' '~ tekst.getKanal().getNavn() }}</th>
-                <td class="text-{{ test.erFerdig() ? 'success' : 'danger'}}">{{ tekst.getStatus() }}</td>
+                <td class="text-{{ tekst.erFerdig() ? 'success' : 'danger'}}">{{ tekst.getStatus() }}</td>
                 <td>{{ tekst.getTekst() }}</td>
                 <td>{{ tekst.getNotater() }}</td>
                 <td>{{ tekst.getEier().getLink()|raw }}</td>

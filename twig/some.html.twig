@@ -3,88 +3,100 @@
 {% include "wp_modul.flashbag.html.twig" %}
 
 <div style="width: 98%">
-    <h2>Idéer / ønsker</h2>
+	<h2>Idéer / ønsker</h2>
 
-    <ol class="list-group">
+	<ol
+		class="list-group">
 
-    {#
-    <table class="table">
-        <thead>
-            <tr>
-                <td width="80">Dato</td>
-                <td width="100">Kanaler</td>
-                <td>Hva skal deles</td>
-                <td>Budskap / tema</td>
-                <td width="140">Av</td>
-                <td width="60">Handlinger</td>
-            </tr>
-        </thead>
-    #}
-        {% for forslag in ideer %}
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-3 col-md-2">
-                        <b>{{ forslag.getPubliseringsdato()|dato('d. M') }}</b>
-                        <br />
-                        {% for kanal in forslag.getKanaler().getAll() %}
-                            <label class="label small" style="background-color: {{kanal.getFarge()}}">{{kanal.getNavn()}}</label>
-                        {% endfor %}    
-                    </div>
-                    <div class="col-xs-7 col-md-9">
-                        <div class="click clickable toggle" data-toggle="#data_{{forslag.getId()}}">
-                            <b>{{ forslag.getHva() }}</b>
-                            <br />
-                            {{ forslag.getBeskrivelse() }}
-                        </div>
-                        
-                        Av: <a href="slack://user?team={{ forslag.getTeamId() }}&id={{ forslag.getEierId() }}">
-                            {{ forslag.getEier().getRealName() }}
-                        </a>
-                    </div>
-                    <div class="col-xs-2 col-md-1" align="right">
-                        {% if is_super_admin %}
-                            <a href="?page={{GET('page')}}&action={{GET('action')}}&forslag_delete={{forslag.getId()}}" class="btn btn-xs btn-danger btn-ukm">
-                                slett
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row" id="data_{{forslag.getId()}}" style="display:none; margin-top:1em; margin-bottom: 1em;">
-                    <div class="col-xs-12">
-                        {% include "forslag/detaljer.html.twig" %}
-                    </div>
-                </div>
-            </li>
-        {% else %}
-            <li class="list-group-item">
-                <td colspan="4">Vi har ingen registrerte forslag akkurat nå</td>
-            </li>
-        {% endfor %}
-    </ol>
+		{#
+		    <table class="table">
+		        <thead>
+		            <tr>
+		                <td width="80">Dato</td>
+		                <td width="100">Kanaler</td>
+		                <td>Hva skal deles</td>
+		                <td>Budskap / tema</td>
+		                <td width="140">Av</td>
+		                <td width="60">Handlinger</td>
+		            </tr>
+		        </thead>
+		    #}
+		{% for forslag in ideer %}
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-xs-3 col-md-2">
+						<b>{{ forslag.getPubliseringsdato()|dato('d. M') }}</b>
+						<br/>
+						{% for kanal in forslag.getKanaler().getAll() %}
+							<label class="label small" style="background-color: {{kanal.getFarge()}}">{{kanal.getNavn()}}</label>
+						{% endfor %}
+					</div>
+					<div class="col-xs-7 col-md-9">
+						<div class="click clickable toggle" data-toggle="#data_{{forslag.getId()}}">
+							<b>{{ forslag.getHva() }}</b>
+							<br/>
+							{{ forslag.getBeskrivelse() }}
+						</div>
+
+						Av:
+						<a href="slack://user?team={{ forslag.getTeamId() }}&id={{ forslag.getEierId() }}">
+							{{ forslag.getEier().getRealName() }}
+						</a>
+					</div>
+					<div class="col-xs-2 col-md-1" align="right">
+						{% if is_super_admin %}
+							<a href="?page={{GET('page')}}&action={{GET('action')}}&forslag_delete={{forslag.getId()}}" class="btn btn-xs btn-danger btn-ukm">
+								slett
+							</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="row" id="data_{{forslag.getId()}}" style="display:none; margin-top:1em; margin-bottom: 1em;">
+					<div class="col-xs-12">
+						{% include "forslag/detaljer.html.twig" %}
+					</div>
+				</div>
+			</li>
+		{% else %}
+			<li class="list-group-item">
+				<td colspan="4">Vi har ingen registrerte forslag akkurat nå</td>
+			</li>
+		{% endfor %}
+	</ol>
 
 
-    <h2>Publiseringsplan</h2>
+	<h2>Publiseringsplan</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td width="100">Kanal</td>
-                <td width="80">Dato</td>
-                <td>Tekst</td>
-                <td width="60"></td>
-            </tr>
-        </thead>
-        {% for status in plan %}
-            <tr>
-                <td>{{ status.getDato()|dato('d.m.') }} kl. {{ status.getDato()|dato('H:i')}}</td>
-                <td>{{ status.getKanal() }}</td>
-                <td>{{ status.getTekst()}}</td>
-                <td><a href="#" class="btn btn-ukm btn-sm">Detaljer</a></td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Vi har ingen planlagte oppdateringer akkurat nå</td>
-            </tr>
-        {% endfor %}
-    </table>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Dato</th>
+				<th>Kanal</th>
+				<th>Tekst</th>
+				<th>Notater</th>
+				<th>Ansvarlig</th>
+				<th>Forslag</th>
+			</tr>
+		</thead>
+		<tbody>
+            {% for forslag in ideer %}
+                {% for tekst in forslag.getTekster().getAll()|filter(tekst => tekst.erFerdig()) %}
+                    <tr>
+                        <td>{{ forslag.getPubliseringsdato()|dato('d.M') }}</td>
+                        <th><label class="label small" style="background-color: {{tekst.getKanal().getFarge()}}">{{tekst.getKanal().getNavn()}}</label></th>
+                        <td>{{ tekst.getTekst() }}</td>
+                        <td>{{ tekst.getNotater() }}</td>
+                        <td>{{ tekst.getEier().getLink()|raw }}</td>
+                        <td><a href="?page={{GET('page')}}&action={{GET('action')}}&forslag={{forslag.getId()}}" class="btn btn-xs btn-ukm">detaljer</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        Vi har ingenting i publiseringsplana akkurat nå.
+                    </td>
+                </tr>
+            {% endfor %}
+		</tbody>
+	</table>
 </div>
