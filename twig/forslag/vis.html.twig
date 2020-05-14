@@ -1,0 +1,20 @@
+<div class="pull-right">
+    <a href="?page={{GET('page')}}&action={{GET('action')}}" class="btn btn-ukm btn-xs" style="margin-right: 1em;">Til oversikten</a>
+</div>
+<h2>
+	{{forslag.getHva()}}
+	<small>
+		av
+		{{ forslag.getEier().getLink()|raw }}
+	</small>
+</h2>
+
+<p>
+	<b>{{ forslag.getPubliseringsdato()|dato('d. M') }}</b>
+	&nbsp;
+	{% for kanal in forslag.getKanaler().getAll() %}
+		<label class="label small" style="background-color: {{kanal.getFarge()}}">{{kanal.getNavn()}}</label>
+	{% endfor %}
+</p>
+
+{% include "forslag/vis.html.twig" %}

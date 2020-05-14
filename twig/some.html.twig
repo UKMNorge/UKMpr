@@ -51,24 +51,7 @@
                 </div>
                 <div class="row" id="data_{{forslag.getId()}}" style="display:none; margin-top:1em; margin-bottom: 1em;">
                     <div class="col-xs-12">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Dato</th>
-                                    <th>Beskrivelse</th>
-                                    <th>Av</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for event in forslag.getLog().getAll() %}
-                                    <tr>
-                                        <td>{{ event.getTimestamp().format('d.m H:i') }}</td>
-                                        <td>{{ event.getOppsummering() }}</td>
-                                        <td>{{ event.getEierLink()|raw }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% include "forslag/detaljer.html.twig" %}
                     </div>
                 </div>
             </li>

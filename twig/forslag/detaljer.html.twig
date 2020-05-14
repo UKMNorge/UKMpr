@@ -1,22 +1,3 @@
-<div class="pull-right">
-    <a href="?page={{GET('page')}}&action={{GET('action')}}" class="btn btn-ukm btn-xs" style="margin-right: 1em;">Til oversikten</a>
-</div>
-<h2>
-	{{forslag.getHva()}}
-	<small>
-		av
-		{{ forslag.getEier().getLink()|raw }}
-	</small>
-</h2>
-
-<p>
-	<b>{{ forslag.getPubliseringsdato()|dato('d. M') }}</b>
-	&nbsp;
-	{% for kanal in forslag.getKanaler().getAll() %}
-		<label class="label small" style="background-color: {{kanal.getFarge()}}">{{kanal.getNavn()}}</label>
-	{% endfor %}
-</p>
-
 <h3>Tekster</h3>
 <table class="table table-striped">
 	<thead>
@@ -32,7 +13,7 @@
         {% for tekst in forslag.getTekster().getAll() %}
             <tr>
                 <th>{{ tekst.getKanal().getEmoji() ~' '~ tekst.getKanal().getNavn() }}</th>
-                <td>{{ tekst.getStatus() }}</td>
+                <td class="text-{{ test.erFerdig() ? 'success' : 'danger'}}">{{ tekst.getStatus() }}</td>
                 <td>{{ tekst.getTekst() }}</td>
                 <td>{{ tekst.getNotater() }}</td>
                 <td>{{ tekst.getEier().getLink()|raw }}</td>

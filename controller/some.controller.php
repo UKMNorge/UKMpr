@@ -7,7 +7,7 @@ App::initFromBotToken(SLACK_BOT_TOKEN);
 
 if( isset($_GET['forslag'])) {
     UKMpr::addViewData('forslag', Ideer::getById(intval($_GET['forslag'])));
-    UKMpr::setAction('forslag/detaljer');
+    UKMpr::setAction('forslag/vis');
 } elseif (isset($_GET['forslag_delete'])) {
     UKMpr::addViewData('forslag', Ideer::getById($_GET['forslag_delete']));
     UKMpr::setAction('forslag/delete');
