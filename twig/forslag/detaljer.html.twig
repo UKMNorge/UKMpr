@@ -32,7 +32,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for event in forslag.getLog().getAll() %}
+		{% for event in forslag.getLog().getAll()|reverse %}
 			<tr>
 				<td>{{ event.getTimestamp().format('d.m H:i') }}</td>
 				<td>{{ event.getOppsummering() }}</td>
