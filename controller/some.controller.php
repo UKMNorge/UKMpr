@@ -1,9 +1,12 @@
 <?php
 
 use UKMNorge\Slack\API\App;
+use UKMNorge\Slack\Cache\Team\Teams;
 use UKMNorge\Some\Forslag\Ideer;
 
-App::initFromBotToken(SLACK_BOT_TOKEN);
+$teams = new Teams();
+$team = $teams->get( intval($_GET['sync'] ) );
+App::initFromBotToken( $team->getBot()->getAccessToken() );
 
 if( isset($_GET['forslag'])) {
     UKMpr::addViewData('forslag', Ideer::getById(intval($_GET['forslag'])));
