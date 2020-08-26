@@ -6,7 +6,7 @@ use UKMNorge\Some\Forslag\Ideer;
 
 $teams = new Teams();
 
-Teams::getBySlackId( SLACK_MEDIA_TEAM_ID );
+Teams::getBySlackId( SLACK_UKMMEDIA_TEAM_ID );
 App::initFromBotToken( $team->getBot()->getAccessToken() );
 
 if( isset($_GET['forslag'])) {
