@@ -28,6 +28,14 @@ class UKMpr extends Modul
             add_action('admin_menu', ['UKMpr', 'menyArrangement'],1000);
 			add_filter('UKMWPDASH_messages', ['UKMpr', 'meldinger']);
 		}
+
+		add_action('plugins_loaded', ['UKMpr', 'hookInnholdCss']);
+	}
+	
+	public static function hookInnholdCss() {
+			wp_enqueue_style(
+				UKMwp_innhold::hookInnholdCss()
+			);
 	}
 
 	/**

@@ -1,7 +1,30 @@
 <h2 style="margin-top: .8em;">Materiell</h2>
+<style>
+	.huge-icon {
+		font-size: 8em;
+		width: 1em;
+		height: 1em;
+	}
+</style>
 <ol class="list-group" style="width: 95%;">
 	<li class="list-group-item">
-		<img src="//ico.ukm.no/kolli-128.png" width="100" class="pull-right float-right" />
+		<div class="pull-right float-right">
+			<div class="dashicons dashicons-format-video huge-icon"></div>
+		</div>
+		<h3>
+			<a href="?page={{GET('page')}}&action=category">Last ned filmer for sosiale medier</a>
+		</h3>
+		<p>
+			Vi har samlet filmer som kan forklare hva UKM er, og samtidig foreslått tekster du kan bruke som status.
+		</p>
+
+		<div class="clearfix"></div>
+	</li>
+
+	<li class="list-group-item">
+		<div class="pull-right float-right">
+			<div class="dashicons dashicons-cart huge-icon"></div>
+		</div>
 		<h3>
 			<a href="http://ukm.adprofil.no" target="_blank">Bestill ferdig materiell</a>
 		</h3>
@@ -11,15 +34,17 @@
 		<p class="small">
 			<b>OBS:</b>
 			Du vil få spørsmål om brukernavn og passord. Dette oppretter du selv når du fullfører din bestilling. 
-			Brukernavn og passord du har fått fra UKM Norge gjelder ikke i nettbutikken.
+						Brukernavn og passord du har fått fra UKM Norge gjelder ikke i nettbutikken.
 		</p>
 
 		<div class="clearfix"></div>
 	</li>
-	
-	
+
+
 	<li class="list-group-item">
-		<img src="//ico.ukm.no/printer-128.png" width="100" class="pull-right float-right" />
+		<div class="pull-right float-right">
+			<div class="dashicons dashicons-printer huge-icon"></div>
+		</div>
 		<h3>
 			<a href="http://instrato.no/start/ukm-autologin.php?uid={{user_id}}&key={{user_key}}" target="_blank">Tilpass og skriv ut materiell</a>
 		</h3>
@@ -34,44 +59,23 @@
 	</li>
 
 	<li class="list-group-item">
-		<img src="//ico.ukm.no/palette-128.png" width="100" class="pull-right float-right" />
+		<div class="pull-right float-right">
+			<div class="dashicons dashicons-cover-image huge-icon"></div>
+		</div>
 		<h3>
 			<a href="https://org.ukm.no/grafisk-profil/" target="_blank">Grafiske elementer og logoer</a>
 		</h3>
 		<p>
-			Ønsker du å designe ting helt selv, eller trenger en UKM-logo finner du de i 
+			Ønsker du å designe ting helt selv, eller trenger en UKM-logo finner du de i
 			<a href="https://org.ukm.no/grafisk-profil/" target="_blank">vår grafiske profil på organisasjonssiden</a>.
 		</p>
 		<p class="small">
 			<b>TIPS:</b>
-			Sjekk ut 
+			Sjekk ut
 			<a href="http://instrato.no/start/ukm-autologin.php?uid={{user_id}}&key={{user_key}}" target="_blank">ferdigmalene</a>
 			før du lager egne ting.
 		</p>
 
 		<div class="clearfix"></div>
 	</li>
-	
-	{% if eksternbruker is defined %}
-		<li class="list-group-item">
-			<img src="//ico.ukm.no/geek-128.png" width="100" class="pull-right float-right" />
-			<h3>
-				Gi andre tilgang til design-generatoren
-			</h3>
-			<p>
-				Hvis andre skal lage tilpasset materiell for deg, kan du la de få dette brukernavnet og passordet.
-			</p>
-
-			<p>
-				<b>Innlogging:</b> <a href="http://instrato.no" target="_blank">instrato.no</a>
-				<br />
-				<b>Brukernavn:</b> {{eksternbruker.navn}}
-				<br />
-				<b>Passord:</b> {{eksternbruker.pass}}
-			</p>
-	
-			<div class="clearfix"></div>
-		</li>
-	{% endif %}
-	
 </ol>
