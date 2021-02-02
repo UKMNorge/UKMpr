@@ -9,7 +9,7 @@ UKMwp_innhold::renderAdmin();
 require_once( UKMwp_innhold::getPath() .'functions/getCategory.function.php');
 $category = getCategory('markedsforing-filmer');
 $_GET['category'] = 'cat='. $category->term_id;
-$_GET['limit'] = '&posts_per_page='. 20;
+$_GET['limit'] = 20;
 
 // Hent alle nyheter
 UKMwp_innhold::setAction('posts');
