@@ -109,15 +109,15 @@ class UKMpr extends Modul
     public static function menyArrangement() {
         $arrangement = new Arrangement(intval(get_option('pl_id')));
         if( in_array($arrangement->getEierType(), ['fylke', 'land']) && $arrangement->erMonstring() ) {
-            $page_pressemelding = add_submenu_page(
-                'index.php',
-                'Pressemelding',
-                'Pressemelding',
-                'editor',
-                'UKMpressemelding',
-                ['UKMpr', 'renderPressemelding'],
-                100
-            );
+            // $page_pressemelding = add_submenu_page(
+            //     'index.php',
+            //     'Pressemelding',
+            //     'Pressemelding',
+            //     'editor',
+            //     'UKMpressemelding',
+            //     ['UKMpr', 'renderPressemelding'],
+            //     100
+            // );
             add_action(
                 'admin_print_styles-' . $page_pressemelding,
                 ['UKMpr', 'scripts_and_styles']
